@@ -1,4 +1,7 @@
 import pandas
+import shapely
 import scipy
+from shapely.geometry import Point
 
-print('Hello pandas world')
+print(Point(0,0))
+print('Hello pandas, scipy, shapely world!')
