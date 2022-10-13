@@ -11,6 +11,11 @@ def get_scipy_path():
     pandas_path = scipy.__path__[0]
     return pandas_path
 
+def get_shapely_path():
+    import shapely
+    shapely_path = shapely.__path__[0]
+    return shapely_path
+
 a = Analysis(['main.py'],
          pathex=[],
          binaries=None,
@@ -32,6 +37,11 @@ a.binaries = filter(lambda x: 'pandas' not in x[0], a.binaries)
 dict_tree = Tree(get_scipy_path(), prefix='scipy', excludes=["*.pyc"])
 a.datas += dict_tree
 a.binaries = filter(lambda x: 'scipy' not in x[0], a.binaries)
+
+# Fix shapely imports
+dict_tree = Tree(get_shapely_path(), prefix='shapely', excludes=["*.pyc"])
+a.datas += dict_tree
+a.binaries = filter(lambda x: 'shapely' not in x[0], a.binaries)
 
 pyz = PYZ(a.pure, a.zipped_data,
          cipher=block_cipher)
